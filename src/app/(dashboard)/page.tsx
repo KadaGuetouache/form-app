@@ -2,6 +2,7 @@ import { ReactNode } from "react";
 import { GetFormStats } from "@/actions/form";
 import { LuView } from "react-icons/lu";
 import { Card, CardHeader, CardContent, CardTitle } from "@/components/ui/card";
+import CreateFormButton from "@/components/CreateFormButton";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Separator } from "@/components/ui/separator";
 import { Suspense } from "react";
@@ -18,6 +19,9 @@ const Home = () => {
       <Separator className="my-6" />
       <h2 className="text-4xl font-bold col-span-2">Your forms</h2>
       <Separator className="my-6" />
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+        <CreateFormButton />
+      </div>
     </div>
   );
 };
