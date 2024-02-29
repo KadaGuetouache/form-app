@@ -26,8 +26,10 @@ import { Textarea } from "./ui/textarea";
 import { toast } from "./ui/use-toast";
 import { formSchema, formSchemaType } from "@/schemas/form";
 import { CreateForm } from "@/actions/form";
+import { useRouter } from "next/navigation";
 
 const CreateFormButton = () => {
+  const router = useRouter();
   const form = useForm<formSchemaType>({
     resolver: zodResolver(formSchema),
   });
@@ -40,7 +42,7 @@ const CreateFormButton = () => {
         description: "Form created successfully",
       });
 
-      console.log(formId);
+      router.push(`/builder/${formId}`);
     } catch (error) {
       toast({
         title: "Error",
