@@ -6,12 +6,18 @@ import { formSchema, formSchemaType } from "@/schemas/form";
 
 class UserNotFoundErr extends Error { }
 
-export async function GetFormStats() {
+async function validateUser() {
   const user = await currentUser();
 
   if (!user) {
     throw new UserNotFoundErr();
   }
+
+  return user;
+}
+
+export async function GetFormStats() {
+  const user = await validateUser();
 
   const stats = await prisma.form.aggregate({
     where: {
@@ -49,11 +55,7 @@ export async function CreateForm(data: formSchemaType) {
     throw new Error("form not valid!");
   }
 
-  const user = await currentUser();
-
-  if (!user) {
-    throw new UserNotFoundErr();
-  }
+  const user = await validateUser();
 
   const { name, description } = data;
 
@@ -73,11 +75,7 @@ export async function CreateForm(data: formSchemaType) {
 }
 
 export async function GetForms() {
-  const user = await currentUser();
-
-  if (!user) {
-    throw new UserNotFoundErr();
-  }
+  const user = await validateUser();
 
   return await prisma.form.findMany({
     where: {
@@ -85,6 +83,17 @@ export async function GetForms() {
     },
     orderBy: {
       createdAt: "desc",
+    },
+  });
+}
+
+export async function GetFormById(id: number) {
+  const user = await validateUser();
+
+  return await prisma.form.findUnique({
+    where: {
+      userId: user.id,
+      id,
     },
   });
 }
