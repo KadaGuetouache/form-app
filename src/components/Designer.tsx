@@ -16,11 +16,15 @@ import {
 import { idGenerator } from "@/lib/idGenerator";
 import { Button } from "./ui/button";
 import { BiSolidTrash } from "react-icons/bi";
-import { setSourceMapsEnabled } from "process";
 
 const Designer = () => {
-  const { elements, addElement, selectedElement, setSelectedElement } =
-    useDesigner();
+  const {
+    elements,
+    addElement,
+    selectedElement,
+    removeElement,
+    setSelectedElement,
+  } = useDesigner();
 
   const { setNodeRef, isOver } = useDroppable({
     id: "designer-drop-area",
@@ -36,12 +40,82 @@ const Designer = () => {
       if (!active || !over) return;
 
       const isDesignerBtnElement = active.data?.current?.isDesignerBtnElement;
+      const isDroppingOverDesignerDropArea =
+        over.data?.current?.isDesignerDropArea;
 
-      if (isDesignerBtnElement) {
+      const droppingSideBarBtnOverDesignerDropArea =
+        isDesignerBtnElement && isDroppingOverDesignerDropArea;
+
+      // First senario
+      if (droppingSideBarBtnOverDesignerDropArea) {
         const type = active.data?.current?.type;
         const newElement =
           FormElements[type as ElementsType].construct(idGenerator());
-        addElement(0, newElement);
+        addElement(elements.length, newElement);
+        return;
+      }
+
+      // Second senario
+      const isDroppingOverDesignerElementTopHalf =
+        over.data?.current?.isTopHalfDesignerElement;
+      const isDroppingOverDesignerElementBottomHalf =
+        over.data?.current?.isBottomHalfDesignerElement;
+
+      const isDroppingOverDesignerElement =
+        isDroppingOverDesignerElementTopHalf ||
+        isDroppingOverDesignerElementBottomHalf;
+
+      const droppingSideBarBtnOverDesignerElement =
+        isDesignerBtnElement && isDroppingOverDesignerElement;
+
+      if (droppingSideBarBtnOverDesignerElement) {
+        const type = active.data?.current?.type;
+        const newElement =
+          FormElements[type as ElementsType].construct(idGenerator());
+
+        const overId = over.data?.current?.elementId;
+
+        const overElementIndex = elements.findIndex((el) => el.id === overId);
+
+        if (overElementIndex === -1) throw new Error("Element not found!");
+
+        let indexForNewElement = overElementIndex;
+
+        if (isDroppingOverDesignerElementBottomHalf) {
+          indexForNewElement = overElementIndex + 1;
+        }
+
+        addElement(indexForNewElement, newElement);
+        return;
+      }
+
+      // Third scenario
+      const isDraggingDesignerElement = active.data?.current?.isDesignerElement;
+      const draggingDesignerElementOverAnotherDesignerElement =
+        isDroppingOverDesignerElement && isDraggingDesignerElement;
+
+      if (draggingDesignerElementOverAnotherDesignerElement) {
+        const activeId = active.data?.current?.elementId;
+        const overId = over.data?.current?.elementId;
+
+        const activeElementIndex = elements.findIndex(
+          (el) => el.id === activeId,
+        );
+
+        const overElementIndex = elements.findIndex((el) => el.id === overId);
+
+        if (activeElementIndex === -1 || overElementIndex === -1)
+          throw new Error("element not found!");
+
+        const activeElement = { ...elements[activeElementIndex] };
+        removeElement(activeId);
+
+        let indexForNewElement = overElementIndex;
+        if (isDroppingOverDesignerElementBottomHalf) {
+          indexForNewElement = overElementIndex + 1;
+        }
+
+        addElement(indexForNewElement, activeElement);
       }
     },
   });
@@ -59,7 +133,7 @@ const Designer = () => {
           ref={setNodeRef}
           className={cn(
             "bg-background max-w-[920px] h-full m-auto rounded-xl flex flex-col flex-grow items-center justify-start flex-1 overflow-y-auto",
-            isOver && "ring-2 ring-primary/20",
+            isOver && "ring-4 ring-primary/80",
           )}
         >
           {!isOver && elements.length === 0 && (
@@ -93,7 +167,7 @@ function DesignerElementWrapper({ element }: { element: FormElementInstance }) {
     id: element?.id + "-top",
     data: {
       type: element.type,
-      id: element.id,
+      elementId: element.id,
       isTopHalfDesignerElement: true,
     },
   });
@@ -102,7 +176,7 @@ function DesignerElementWrapper({ element }: { element: FormElementInstance }) {
     id: element?.id + "-bottom",
     data: {
       type: element.type,
-      id: element.id,
+      elementId: element.id,
       isBottomHalfDesignerElement: true,
     },
   });

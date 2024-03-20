@@ -208,7 +208,7 @@ function DesignerComponent({
   return (
     <div className="flex flex-col gap-2 w-full">
       <Label>
-        {label} - {element.id}
+        {label}
         {required && "*"}
       </Label>
       <Input readOnly disabled placeholder={placeHolder} />
