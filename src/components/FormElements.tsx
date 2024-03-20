@@ -1,5 +1,4 @@
 import { TextFieldFormElement } from "./fields/TextField";
-import { DateFieldFormElement } from "./fields/DateField";
 
 export type ElementsType = "TextField";
 
@@ -12,7 +11,7 @@ export type FormElement = {
   };
   designerComponent: React.FC<{ elementInstance: FormElementInstance }>;
   formComponent: React.FC;
-  propertiesComponent: React.FC;
+  propertiesComponent: React.FC<{ elementInstance: FormElementInstance }>;
 };
 
 export type FormElementInstance = {
