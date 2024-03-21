@@ -161,7 +161,7 @@ const Designer = () => {
 };
 
 function DesignerElementWrapper({ element }: { element: FormElementInstance }) {
-  const { removeElement, selectedElement, setSelectedElement } = useDesigner();
+  const { removeElement, setSelectedElement } = useDesigner();
   const [mouseIsOver, setMouseIsOver] = useState<boolean>(false);
   const topHalf = useDroppable({
     id: element?.id + "-top",
