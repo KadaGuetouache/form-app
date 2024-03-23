@@ -1,5 +1,4 @@
 import React, { useTransition } from "react";
-import { MdOutlinePublish } from "react-icons/md";
 import { Button } from "./ui/button";
 import {
   AlertDialog,
@@ -15,7 +14,7 @@ import {
 import { toast } from "./ui/use-toast";
 import { PublishForm } from "@/actions/form";
 import { useRouter } from "next/navigation";
-import { ImSpinner } from "react-icons/im";
+import { PublishIcon, SpinnerIcon } from "@/constants/icons";
 
 const PublishFormBtn = ({ id }: { id: number }) => {
   const [loading, startTransition] = useTransition();
@@ -44,7 +43,7 @@ const PublishFormBtn = ({ id }: { id: number }) => {
           variant="outline"
           className="gap-2 text-white bg-gradient-to-r from-indigo-400 to-cyan-400"
         >
-          <MdOutlinePublish className="w-6 h-6" />
+          <PublishIcon className="w-6 h-6" />
           Publish
         </Button>
       </AlertDialogTrigger>
@@ -69,7 +68,8 @@ const PublishFormBtn = ({ id }: { id: number }) => {
               startTransition(publishForm);
             }}
           >
-            Proceed {loading && <ImSpinner className="ml-2 animate-spin" />}
+            <span className="mr-2">Proceed</span>{" "}
+            {!loading && <SpinnerIcon className="animate-spin" />}
           </AlertDialogAction>
         </AlertDialogFooter>
       </AlertDialogContent>

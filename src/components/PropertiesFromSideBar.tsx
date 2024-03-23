@@ -2,8 +2,8 @@ import React from "react";
 import useDesigner from "./hooks/useDesigner";
 import { FormElements } from "./FormElements";
 import { Button } from "./ui/button";
-import { AiOutlineClose } from "react-icons/ai";
 import { Separator } from "./ui/separator";
+import { CloseIcon } from "@/constants/icons";
 
 const PropertiesFromSideBar = () => {
   const { selectedElement, setSelectedElement } = useDesigner();
@@ -22,7 +22,7 @@ const PropertiesFromSideBar = () => {
           variant="ghost"
           onClick={() => setSelectedElement(null)}
         >
-          <AiOutlineClose />
+          <CloseIcon className="w-4 h-4" />
         </Button>
       </div>
       <Separator className="mb-4" />

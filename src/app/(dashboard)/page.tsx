@@ -1,6 +1,13 @@
 import { ReactNode } from "react";
 import { GetFormStats, GetForms } from "@/actions/form";
-import { LuView } from "react-icons/lu";
+import {
+  BounceIcon,
+  CalendarIcon,
+  CursorClickIcon,
+  PencilIcon,
+  PersonIcon,
+  RightArrowIcon,
+} from "@/constants/icons";
 import {
   Card,
   CardHeader,
@@ -13,15 +20,10 @@ import CreateFormButton from "@/components/CreateFormButton";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Separator } from "@/components/ui/separator";
 import { Suspense } from "react";
-import { HiCursorClick } from "react-icons/hi";
-import { TbArrowBounce } from "react-icons/tb";
-import { FaWpforms } from "react-icons/fa";
 import { Form } from "@prisma/client";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { BiRightArrowAlt } from "react-icons/bi";
-import { FaEdit } from "react-icons/fa";
 import { formatDistance } from "date-fns";
 
 const Home = () => {
@@ -65,7 +67,7 @@ function StatsCards(props: StatsCardProps) {
     <div className="w-full pt-8 gap-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4">
       <StatsCard
         title="Total visits"
-        icon={<LuView className="text-blue-600" />}
+        icon={<PersonIcon className="text-blue-600 w-6 h-6" />}
         helperText="All time form visits"
         value={data?.visits.toLocaleString() || ""}
         loading={loading}
@@ -73,7 +75,7 @@ function StatsCards(props: StatsCardProps) {
       />
       <StatsCard
         title="Total submissions"
-        icon={<FaWpforms className="text-yellow-600" />}
+        icon={<CalendarIcon className="text-yellow-600 h-6 w-6" />}
         helperText="All time form submissions"
         value={data?.submissions.toLocaleString() || ""}
         loading={loading}
@@ -81,7 +83,7 @@ function StatsCards(props: StatsCardProps) {
       />
       <StatsCard
         title="Submissions rate"
-        icon={<HiCursorClick className="text-green-600" />}
+        icon={<CursorClickIcon className="text-green-600 w-6 h-6" />}
         helperText="Visits that result in form submissions"
         value={data?.submissionRate.toLocaleString() + "%" || ""}
         loading={loading}
@@ -89,7 +91,7 @@ function StatsCards(props: StatsCardProps) {
       />
       <StatsCard
         title="Bounce rate"
-        icon={<TbArrowBounce className="text-red-600" />}
+        icon={<BounceIcon className="text-red-600 w-6 h-6" />}
         helperText="Visits that leave without interacting"
         value={data?.bounceRate.toLocaleString() + "%" || ""}
         loading={loading}
@@ -170,9 +172,9 @@ function FormCard({ form }: { form: Form }) {
           })}
           {form.published && (
             <span className="flex items-center gap-2">
-              <LuView className="text-muted-foreground" />
+              <PersonIcon className="text-muted-foreground w-4 h-4" />
               <span>{form.visits.toLocaleString()}</span>
-              <FaWpforms className="text-muted-foreground" />
+              <CalendarIcon className="text-muted-foreground w-4 h-4" />
               <span>{form.submissions.toLocaleString()}</span>
             </span>
           )}
@@ -185,7 +187,7 @@ function FormCard({ form }: { form: Form }) {
         {form.published && (
           <Button asChild className="w-full mt-2 text-md gap-4">
             <Link href={`/forms/${form.id}`}>
-              View submissions <BiRightArrowAlt />
+              View submissions <RightArrowIcon className="w-6 h-6" />
             </Link>
           </Button>
         )}
@@ -196,7 +198,7 @@ function FormCard({ form }: { form: Form }) {
             className="w-full mt-2 text-md gap-4"
           >
             <Link href={`/builder/${form.id}`}>
-              Edit form <FaEdit />
+              Edit form <PencilIcon className="w-6 h-6" />
             </Link>
           </Button>
         )}

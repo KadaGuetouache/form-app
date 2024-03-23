@@ -15,16 +15,11 @@ import {
 } from "./FormElements";
 import { idGenerator } from "@/lib/idGenerator";
 import { Button } from "./ui/button";
-import { BiSolidTrash } from "react-icons/bi";
+import { TrashIcon } from "@/constants/icons";
 
 const Designer = () => {
-  const {
-    elements,
-    addElement,
-    selectedElement,
-    removeElement,
-    setSelectedElement,
-  } = useDesigner();
+  const { elements, addElement, removeElement, setSelectedElement } =
+    useDesigner();
 
   const { setNodeRef, isOver } = useDroppable({
     id: "designer-drop-area",
@@ -226,7 +221,7 @@ function DesignerElementWrapper({ element }: { element: FormElementInstance }) {
                 removeElement(element.id);
               }}
             >
-              <BiSolidTrash className="w-6 h-6" />
+              <TrashIcon className="w-6 h-6" />
             </Button>
           </div>
           <div className="z-10 flex justify-center items-center w-[90%] h-[120px] absolute top-1/2 left-[46%] -translate-x-1/2 -translate-y-1/2 animate-pulse">

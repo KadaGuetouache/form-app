@@ -15,13 +15,12 @@ import PublishFormBtn from "./PublishFormBtn";
 import Designer from "./Designer";
 import DragOverlayWrapper from "./DragOverlayWrapper";
 import useDesigner from "./hooks/useDesigner";
-import { ImSpinner2 } from "react-icons/im";
 import { Input } from "./ui/input";
 import { Button } from "./ui/button";
 import { toast } from "./ui/use-toast";
 import Link from "next/link";
-import { BsArrowLeft, BsArrowRight } from "react-icons/bs";
 import Confetti from "react-confetti";
+import { LeftArrowIcon, RightArrowIcon, SpinnerIcon } from "@/constants/icons";
 
 const FormBuilder = ({ form }: { form: Form }) => {
   const { setElements } = useDesigner();
@@ -53,7 +52,7 @@ const FormBuilder = ({ form }: { form: Form }) => {
   if (!isReady) {
     return (
       <div className="flex flex-col items-center justify-center w-full h-full">
-        <ImSpinner2 className="animate-spin h-12 w-12" />
+        <SpinnerIcon className="animate-spin h-12 w-12" />
       </div>
     );
   }
@@ -96,14 +95,14 @@ const FormBuilder = ({ form }: { form: Form }) => {
             <div className="flex justify-between">
               <Button variant="link" asChild>
                 <Link href="/" className="gap-2">
-                  <BsArrowLeft />
+                  <LeftArrowIcon className="w-6 h-6" />
                   Go back home
                 </Link>
               </Button>
               <Button variant="link" asChild>
                 <Link href={`/forms/${form.id}`} className="gap-2">
                   Form details
-                  <BsArrowRight />
+                  <RightArrowIcon className="w-6 h-6" />
                 </Link>
               </Button>
             </div>

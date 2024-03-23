@@ -1,9 +1,9 @@
 import React from "react";
 import { Button } from "./ui/button";
-import { MdPreview } from "react-icons/md";
 import useDesigner from "./hooks/useDesigner";
 import { Dialog, DialogContent, DialogTrigger } from "./ui/dialog";
 import { FormElements } from "./FormElements";
+import { PreviewIcon } from "@/constants/icons";
 
 const PreviewDialogBtn = () => {
   const { elements } = useDesigner();
@@ -12,7 +12,7 @@ const PreviewDialogBtn = () => {
     <Dialog>
       <DialogTrigger asChild>
         <Button variant="outline" className="gap-2">
-          <MdPreview className="w-6 h-6" />
+          <PreviewIcon className="w-6 h-6" />
           Preview
         </Button>
       </DialogTrigger>

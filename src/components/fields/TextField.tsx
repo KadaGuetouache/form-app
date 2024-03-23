@@ -1,4 +1,4 @@
-import { MdTextFields } from "react-icons/md";
+import { TextFieldIcon } from "@/constants/icons";
 import {
   ElementsType,
   FormElement,
@@ -54,7 +54,7 @@ export const TextFieldFormElement: FormElement = {
     },
   }),
   designerBtnElement: {
-    icon: MdTextFields,
+    icon: TextFieldIcon,
     label: "Text Field",
   },
 };
