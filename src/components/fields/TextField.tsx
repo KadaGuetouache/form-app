@@ -3,13 +3,14 @@ import {
   ElementsType,
   FormElement,
   FormElementInstance,
+  submitFunction,
 } from "../FormElements";
 import { Label } from "../ui/label";
 import { Input } from "../ui/input";
 import { z } from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import useDesigner from "../hooks/useDesigner";
 import {
   Form,
@@ -67,10 +68,13 @@ export type propertiesFormSchemaType = z.infer<typeof propertiesSchema>;
 
 function FormComponent({
   elementInstance,
+  submitValue,
 }: {
   elementInstance: FormElementInstance;
+  submitValue?: submitFunction;
 }) {
   const element = elementInstance as CustomInstance;
+  const [value, setValue] = useState<string>("");
   const { label, required, helperText, placeHolder } = element.extraAttributes;
 
   return (
@@ -79,7 +83,15 @@ function FormComponent({
         {label}
         {required && "*"}
       </Label>
-      <Input placeholder={placeHolder} />
+      <Input
+        placeholder={placeHolder}
+        onChange={(e) => setValue(e.target.validationMessage)}
+        onBlur={(e) => {
+          if (!submitValue) return;
+          submitValue(element.id, e.target.value);
+        }}
+        value={value}
+      />
       {helperText && (
         <p className="text-muted-foreground text-[0.8rem]">{helperText}</p>
       )}

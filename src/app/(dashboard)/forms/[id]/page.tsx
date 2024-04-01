@@ -71,8 +71,20 @@ const FormDetails = async ({ params }: { params: { id: string } }) => {
           className="shadow-md shadow-red-600"
         />
       </div>
+      <div className="container pt-10">
+        <SubmissionsTable id={form.id} />
+      </div>
     </>
   );
 };
+
+function SubmissionsTable({ id }: { id: number }) {
+  const formUrl = id;
+  return (
+    <>
+      <h1 className="text-2xl font-bold my-4">Submissions</h1>
+    </>
+  );
+}
 
 export default FormDetails;
