@@ -69,7 +69,7 @@ const PublishFormBtn = ({ id }: { id: number }) => {
             }}
           >
             <span className="mr-2">Proceed</span>{" "}
-            {!loading && <SpinnerIcon className="animate-spin" />}
+            {loading && <SpinnerIcon className="animate-spin" />}
           </AlertDialogAction>
         </AlertDialogFooter>
       </AlertDialogContent>

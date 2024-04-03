@@ -57,7 +57,7 @@ export const CursorClickIcon = ({ className }: classNameProps) => {
       fill="currentColor"
       stroke="currentColor"
       strokeWidth="0"
-      ariaHidden="true"
+      aria-hidden="true"
       viewBox="0 0 20 20"
       className={className}
     >
