@@ -300,3 +300,102 @@ export const LinkIcon = ({ className }: classNameProps) => {
     </svg>
   );
 };
+
+export const HeadingOneIcon = ({ className }: classNameProps) => {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="1em"
+      height="1em"
+      fill="none"
+      stroke="currentColor"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth="2"
+      viewBox="0 0 24 24"
+      className={className}
+    >
+      <path d="M4 12h8M4 18V6M12 18V6M17 12l3-2v8"></path>
+    </svg>
+  );
+};
+
+export const HeadingTwoIcon = ({ className }: classNameProps) => {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="1em"
+      height="1em"
+      fill="none"
+      stroke="currentColor"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth="2"
+      viewBox="0 0 24 24"
+      className={className}
+    >
+      <path d="M4 12h8M4 18V6M12 18V6M21 18h-4c0-4 4-3 4-6 0-1.5-2-2.5-4-1"></path>
+    </svg>
+  );
+};
+
+export const TextParagraphIcon = ({ className }: classNameProps) => {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="1em"
+      height="1em"
+      fill="currentColor"
+      stroke="currentColor"
+      strokeWidth="0"
+      viewBox="0 0 16 16"
+      className={className}
+    >
+      <path
+        fillRule="evenodd"
+        d="M2 12.5a.5.5 0 01.5-.5h7a.5.5 0 010 1h-7a.5.5 0 01-.5-.5zm0-3a.5.5 0 01.5-.5h11a.5.5 0 010 1h-11a.5.5 0 01-.5-.5zm0-3a.5.5 0 01.5-.5h11a.5.5 0 010 1h-11a.5.5 0 01-.5-.5zm4-3a.5.5 0 01.5-.5h7a.5.5 0 010 1h-7a.5.5 0 01-.5-.5z"
+      ></path>
+    </svg>
+  );
+};
+
+export const SeparatorIcon = ({ className }: classNameProps) => {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="1em"
+      height="1em"
+      fill="currentColor"
+      stroke="currentColor"
+      strokeWidth="0"
+      viewBox="0 0 24 24"
+      className={className}
+    >
+      <path
+        stroke="none"
+        d="M2 11h2v2H2v-2zm4 0h12v2H6v-2zm14 0h2v2h-2v-2z"
+      ></path>
+    </svg>
+  );
+};
+
+export const SpacerIcon = ({ className }: classNameProps) => {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="1em"
+      height="1em"
+      fill="none"
+      stroke="currentColor"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth="2"
+      viewBox="0 0 24 24"
+      className={className}
+    >
+      <path d="M3 12L21 12"></path>
+      <path d="M8 8L12 4 16 8"></path>
+      <path d="M16 16L12 20 8 16"></path>
+    </svg>
+  );
+};
