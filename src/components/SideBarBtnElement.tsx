@@ -19,7 +19,7 @@ const SideBarBtnElement = ({ formElement }: { formElement: FormElement }) => {
       ref={setNodeRef}
       variant={"outline"}
       className={cn(
-        "flex flex-col gap-2 cursor-grab w-[120px] h-[120px]",
+        "flex flex-col gap-2 cursor-grab w-[110px] h-[110px] lg:w-[120px] lg:h-[120px]",
         isDragging && "ring-2 ring-primary",
       )}
       {...attributes}

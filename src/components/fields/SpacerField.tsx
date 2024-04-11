@@ -63,7 +63,7 @@ function FormComponent({
   const element = elementInstance as CustomInstance;
   const { height } = element.extraAttributes;
 
-  return <div style={{ height, width: "100%" }}></div>;
+  return <div style={{ padding: height, width: "100%" }}></div>;
 }
 
 function PropertiesComponent({

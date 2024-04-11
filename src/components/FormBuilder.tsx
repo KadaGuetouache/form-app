@@ -23,7 +23,7 @@ import Confetti from "react-confetti";
 import { LeftArrowIcon, RightArrowIcon, SpinnerIcon } from "@/constants/icons";
 
 const FormBuilder = ({ form }: { form: Form }) => {
-  const { setElements } = useDesigner();
+  const { setElements, setSelectedElement } = useDesigner();
   const [isReady, setIsReady] = useState<boolean>(false);
 
   const mouseSensor = useSensor(MouseSensor, {
@@ -45,9 +45,10 @@ const FormBuilder = ({ form }: { form: Form }) => {
     if (isReady) return;
     const elements = JSON.parse(form.content);
     setElements(elements);
+    setSelectedElement(null);
     const readyTimeout = setTimeout(() => setIsReady(true), 500);
     return () => clearTimeout(readyTimeout);
-  }, [form, setElements, isReady]);
+  }, [form, setElements, isReady, setSelectedElement]);
 
   if (!isReady) {
     return (

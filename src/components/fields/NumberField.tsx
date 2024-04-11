@@ -1,4 +1,4 @@
-import { TextFieldIcon } from "@/constants/icons";
+import { NumberIcon } from "@/constants/icons";
 import {
   ElementsType,
   FormElement,
@@ -24,13 +24,13 @@ import {
 import { Switch } from "../ui/switch";
 import { cn } from "@/lib/utils";
 
-const type: ElementsType = "TextField";
+const type: ElementsType = "NumberField";
 
 const extraAttributes = {
-  label: "Text Field",
+  label: "Number Field",
   helperText: "Helper text",
   required: false,
-  placeHolder: "Value here ...",
+  placeHolder: "0",
 };
 
 const propertiesSchema = z.object({
@@ -40,7 +40,7 @@ const propertiesSchema = z.object({
   placeHolder: z.string().max(50),
 });
 
-export const TextFieldFormElement: FormElement = {
+export const NumberFieldFormElement: FormElement = {
   type,
   designerComponent: DesignerComponent,
   formComponent: FormComponent,
@@ -51,8 +51,8 @@ export const TextFieldFormElement: FormElement = {
     extraAttributes,
   }),
   designerBtnElement: {
-    icon: TextFieldIcon,
-    label: "Text Field",
+    icon: NumberIcon,
+    label: "Number Field",
   },
   validate: (
     FormElement: FormElementInstance,
@@ -102,12 +102,16 @@ function FormComponent({
       </Label>
       <Input
         className={cn(error && "border-red-500")}
+        type="number"
         placeholder={placeHolder}
         onChange={(e) => setValue(e.target.value)}
         onBlur={(e) => {
           if (!submitValue) return;
 
-          const valid = TextFieldFormElement.validate(element, e.target.value);
+          const valid = NumberFieldFormElement.validate(
+            element,
+            e.target.value,
+          );
 
           setError(!valid);
 
@@ -277,7 +281,7 @@ function DesignerComponent({
         {label}
         {required && "*"}
       </Label>
-      <Input readOnly disabled placeholder={placeHolder} />
+      <Input readOnly disabled type="number" placeholder={placeHolder} />
       {helperText && (
         <p className="text-muted-foreground text-[0.8rem]">{helperText}</p>
       )}

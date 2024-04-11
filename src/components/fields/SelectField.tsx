@@ -1,4 +1,4 @@
-import { TextFieldIcon } from "@/constants/icons";
+import { CloseIcon, PlusIcon, SelectIcon } from "@/constants/icons";
 import {
   ElementsType,
   FormElement,
@@ -23,14 +23,25 @@ import {
 } from "../ui/form";
 import { Switch } from "../ui/switch";
 import { cn } from "@/lib/utils";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "../ui/select";
+import { Separator } from "../ui/separator";
+import { Button } from "../ui/button";
+import { toast } from "../ui/use-toast";
 
-const type: ElementsType = "TextField";
+const type: ElementsType = "SelectField";
 
 const extraAttributes = {
-  label: "Text Field",
+  label: "Select Field",
   helperText: "Helper text",
   required: false,
   placeHolder: "Value here ...",
+  options: [],
 };
 
 const propertiesSchema = z.object({
@@ -38,9 +49,10 @@ const propertiesSchema = z.object({
   helperText: z.string().max(200),
   required: z.boolean().default(false),
   placeHolder: z.string().max(50),
+  options: z.array(z.string()).default([]),
 });
 
-export const TextFieldFormElement: FormElement = {
+export const SelectFieldFormElement: FormElement = {
   type,
   designerComponent: DesignerComponent,
   formComponent: FormComponent,
@@ -51,8 +63,8 @@ export const TextFieldFormElement: FormElement = {
     extraAttributes,
   }),
   designerBtnElement: {
-    icon: TextFieldIcon,
-    label: "Text Field",
+    icon: SelectIcon,
+    label: "Select Field",
   },
   validate: (
     FormElement: FormElementInstance,
@@ -88,7 +100,8 @@ function FormComponent({
   const element = elementInstance as CustomInstance;
   const [value, setValue] = useState<string>(defaultValue || "");
   const [error, setError] = useState<boolean>(false);
-  const { label, required, helperText, placeHolder } = element.extraAttributes;
+  const { label, required, helperText, placeHolder, options } =
+    element.extraAttributes;
 
   useEffect(() => {
     setError(isInvalid === true);
@@ -100,23 +113,27 @@ function FormComponent({
         {label}
         {required && "*"}
       </Label>
-      <Input
-        className={cn(error && "border-red-500")}
-        placeholder={placeHolder}
-        onChange={(e) => setValue(e.target.value)}
-        onBlur={(e) => {
+      <Select
+        defaultValue={value}
+        onValueChange={(value) => {
+          setValue(value);
           if (!submitValue) return;
-
-          const valid = TextFieldFormElement.validate(element, e.target.value);
-
+          const valid = SelectFieldFormElement.validate(element, value);
           setError(!valid);
-
-          if (!valid) return;
-
-          submitValue(element.id, e.target.value);
+          submitValue(element.id, value);
         }}
-        value={value}
-      />
+      >
+        <SelectTrigger className={cn("w-full", error && "border-red-500")}>
+          <SelectValue placeholder={placeHolder} />
+        </SelectTrigger>
+        <SelectContent>
+          {options.map((option) => (
+            <SelectItem key={option} value={option}>
+              {option}
+            </SelectItem>
+          ))}
+        </SelectContent>
+      </Select>
       {helperText && (
         <p
           className={cn(
@@ -139,23 +156,24 @@ function PropertiesComponent({
   const element = elementInstance as CustomInstance;
   const form = useForm<propertiesFormSchemaType>({
     resolver: zodResolver(propertiesSchema),
-    mode: "onBlur",
+    mode: "onSubmit",
     defaultValues: {
       label: element.extraAttributes.label,
       helperText: element.extraAttributes.helperText,
       required: element.extraAttributes.required,
       placeHolder: element.extraAttributes.placeHolder,
+      options: element.extraAttributes.options,
     },
   });
 
-  const { updateElement } = useDesigner();
+  const { updateElement, setSelectedElement } = useDesigner();
 
   useEffect(() => {
     form.reset(element.extraAttributes);
   }, [form, element]);
 
   function applyChanges(values: propertiesFormSchemaType) {
-    const { label, helperText, required, placeHolder } = values;
+    const { label, helperText, required, placeHolder, options } = values;
 
     updateElement(element.id, {
       ...element,
@@ -164,15 +182,22 @@ function PropertiesComponent({
         helperText,
         placeHolder,
         required,
+        options,
       },
     });
+
+    toast({
+      title: "Success",
+      description: "Properties saved successfully"
+    })
+
+    setSelectedElement(null)
   }
 
   return (
     <Form {...form}>
       <form
-        onBlur={form.handleSubmit(applyChanges)}
-        onSubmit={(e) => e.preventDefault()}
+        onSubmit={form.handleSubmit(applyChanges)}
         className="space-y-3"
       >
         <FormField
@@ -200,26 +225,6 @@ function PropertiesComponent({
 
         <FormField
           control={form.control}
-          name="placeHolder"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Placeholder</FormLabel>
-              <FormControl>
-                <Input
-                  {...field}
-                  onKeyDown={(e) => {
-                    if (e.key === "Enter") e.currentTarget.blur();
-                  }}
-                />
-              </FormControl>
-              <FormDescription>The placeholder of the field</FormDescription>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-
-        <FormField
-          control={form.control}
           name="helperText"
           render={({ field }) => (
             <FormItem>
@@ -240,6 +245,56 @@ function PropertiesComponent({
             </FormItem>
           )}
         />
+        <Separator />
+        <FormField
+          control={form.control}
+          name="options"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Options</FormLabel>
+              <div className="flex justify-between items-center">
+                <FormLabel>Options</FormLabel>
+                <Button
+                  variant={"outline"}
+                  className="gap-2"
+                  onClick={(event) => {
+                    event.preventDefault();
+                    form.setValue(
+                      "options",
+                      field.value.concat("New option"),
+                    );
+                  }}
+                >
+                  <PlusIcon className="w-6 h-6" />
+                </Button>
+              </div>
+              <div className="flex flex-col gap-2">
+                {form.watch("options").map((option, index) => (
+                  <div key={index} className="flex items-center justify-between gap-1">
+                    <Input placeholder="" value={option} onChange={(e) => {
+                      field.value[index] = e.target.value
+                      field.onChange(field.value)
+                    }} />
+                    <Button variant={"ghost"} size={"icon"} onClick={event => {
+                      event.preventDefault()
+                      const newOptions = [...field.value]
+                      newOptions.splice(index, 1)
+                      field.onChange(newOptions)
+                    }}>
+                      <CloseIcon className="w-4 h-4" />
+                    </Button>
+                  </div>
+                ))}
+              </div>
+              <FormDescription>
+                The helper text of the field <br />
+                It will be displayed below the field
+              </FormDescription>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <Separator />
         <FormField
           control={form.control}
           name="required"
@@ -259,6 +314,8 @@ function PropertiesComponent({
             </FormItem>
           )}
         />
+        <Separator />
+        <Button className="w-full">Save</Button>
       </form>
     </Form>
   );
@@ -277,7 +334,11 @@ function DesignerComponent({
         {label}
         {required && "*"}
       </Label>
-      <Input readOnly disabled placeholder={placeHolder} />
+      <Select>
+        <SelectTrigger className="w-full">
+          <SelectValue placeholder={placeHolder} />
+        </SelectTrigger>
+      </Select>
       {helperText && (
         <p className="text-muted-foreground text-[0.8rem]">{helperText}</p>
       )}

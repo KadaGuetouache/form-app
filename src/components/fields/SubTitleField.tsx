@@ -28,7 +28,7 @@ const extraAttributes = {
 };
 
 const propertiesSchema = z.object({
-  title: z.string().min(2).max(50),
+  title: z.string().min(2).max(250),
 });
 
 export const SubTitleFieldFormElement: FormElement = {

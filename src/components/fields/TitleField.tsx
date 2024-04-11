@@ -62,7 +62,7 @@ function FormComponent({
   const element = elementInstance as CustomInstance;
   const { title } = element.extraAttributes;
 
-  return <p className="text-xl">{title}</p>;
+  return <p className="text-3xl">{title}</p>;
 }
 
 function PropertiesComponent({

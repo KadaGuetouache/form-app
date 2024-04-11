@@ -399,3 +399,103 @@ export const SpacerIcon = ({ className }: classNameProps) => {
     </svg>
   );
 };
+
+export const NumberIcon = ({ className }: classNameProps) => {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="1em"
+      height="1em"
+      fill="currentColor"
+      stroke="currentColor"
+      strokeWidth="0"
+      viewBox="0 0 16 16"
+      className={className}
+    >
+      <path d="M2.873 11.297V4.142H1.699L0 5.379v1.137l1.64-1.18h.06v5.961h1.174zm3.213-5.09v-.063c0-.618.44-1.169 1.196-1.169.676 0 1.174.44 1.174 1.106 0 .624-.42 1.101-.807 1.526L4.99 10.553v.744h4.78v-.99H6.643v-.069L8.41 8.252c.65-.724 1.237-1.332 1.237-2.27C9.646 4.849 8.723 4 7.308 4c-1.573 0-2.36 1.064-2.36 2.15v.057h1.138zm6.559 1.883h.786c.823 0 1.374.481 1.379 1.179.01.707-.55 1.216-1.421 1.21-.77-.005-1.326-.419-1.379-.953h-1.095c.042 1.053.938 1.918 2.464 1.918 1.478 0 2.642-.839 2.62-2.144-.02-1.143-.922-1.651-1.551-1.714v-.063c.535-.09 1.347-.66 1.326-1.678-.026-1.053-.933-1.855-2.359-1.845-1.5.005-2.317.88-2.348 1.898h1.116c.032-.498.498-.944 1.206-.944.703 0 1.206.435 1.206 1.07.005.64-.504 1.106-1.2 1.106h-.75v.96z"></path>
+    </svg>
+  );
+};
+
+export const TextAreaIcon = ({ className }: classNameProps) => {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="1em"
+      height="1em"
+      fill="currentColor"
+      stroke="currentColor"
+      strokeWidth="0"
+      viewBox="0 0 16 16"
+      className={className}
+    >
+      <path
+        stroke="none"
+        d="M0 4.5A2.5 2.5 0 012.5 2h11A2.5 2.5 0 0116 4.5v7a2.5 2.5 0 01-2.5 2.5h-11A2.5 2.5 0 010 11.5v-7zM2.5 3A1.5 1.5 0 001 4.5v7A1.5 1.5 0 002.5 13h11a1.5 1.5 0 001.5-1.5v-7A1.5 1.5 0 0013.5 3h-11zm10.854 4.646a.5.5 0 010 .708l-3 3a.5.5 0 01-.708-.708l3-3a.5.5 0 01.708 0zm0 2.5a.5.5 0 010 .708l-.5.5a.5.5 0 01-.708-.708l.5-.5a.5.5 0 01.708 0z"
+      ></path>
+    </svg>
+  );
+};
+
+export const SelectIcon = ({ className }: classNameProps) => {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="1em"
+      height="1em"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="0"
+      viewBox="0 0 15 15"
+      className={className}
+    >
+      <path
+        fill="currentColor"
+        fillRule="evenodd"
+        d="M7.5 3.1a.4.4 0 100 .8h7a.4.4 0 000-.8h-7zm0 2a.4.4 0 100 .8h7a.4.4 0 000-.8h-7zm-.4 2.4c0-.22.18-.4.4-.4h7a.4.4 0 010 .8h-7a.4.4 0 01-.4-.4zm.4 1.6a.4.4 0 100 .8h7a.4.4 0 000-.8h-7zm-.4 2.4c0-.22.18-.4.4-.4h7a.4.4 0 010 .8h-7a.4.4 0 01-.4-.4zM2.5 9.25L5 6H0l2.5 3.25z"
+        clipRule="evenodd"
+      ></path>
+    </svg>
+  );
+};
+
+export const PlusIcon = ({ className }: classNameProps) => {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="1em"
+      height="1em"
+      fill="currentColor"
+      stroke="currentColor"
+      strokeWidth="0"
+      viewBox="0 0 1024 1024"
+      className={className}
+    >
+      <path
+        stroke="none"
+        d="M482 152h60q8 0 8 8v704q0 8-8 8h-60q-8 0-8-8V160q0-8 8-8z"
+      ></path>
+      <path
+        stroke="none"
+        d="M192 474h672q8 0 8 8v60q0 8-8 8H160q-8 0-8-8v-60q0-8 8-8z"
+      ></path>
+    </svg>
+  );
+};
+
+export const CheckboxIcon = ({ className }: classNameProps) => {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="1em"
+      height="1em"
+      fill="currentColor"
+      stroke="currentColor"
+      strokeWidth="0"
+      viewBox="0 0 512 512"
+      className={className}
+    >
+      <path d="M168.531 215.469l-29.864 29.864 96 96L448 128l-29.864-29.864-183.469 182.395-66.136-65.062zm236.802 189.864H106.667V106.667H320V64H106.667C83.198 64 64 83.198 64 106.667v298.666C64 428.802 83.198 448 106.667 448h298.666C428.802 448 448 428.802 448 405.333V234.667h-42.667v170.666z"></path>
+    </svg>
+  );
+};
