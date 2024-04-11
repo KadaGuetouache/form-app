@@ -82,7 +82,7 @@ function FormComponent({
   elementInstance: FormElementInstance;
   submitValue?: submitFunction;
   isInvalid?: boolean;
-  defaultValue: string;
+  defaultValue?: string;
 }) {
   const element = elementInstance as CustomInstance;
   const [value, setValue] = useState<boolean>(

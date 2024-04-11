@@ -1,12 +1,6 @@
 "use client";
 
-import React, {
-  startTransition,
-  useCallback,
-  useRef,
-  useState,
-  useTransition,
-} from "react";
+import React, { useCallback, useRef, useState, useTransition } from "react";
 import { FormElementInstance, FormElements } from "./FormElements";
 import { Button } from "./ui/button";
 import { CursorClickIcon, SpinnerIcon } from "@/constants/icons";
@@ -24,7 +18,7 @@ const FormSubmitComponent = ({
   const formErrors = useRef<{ [key: string]: boolean }>({});
   const [renderKey, setRenderKey] = useState(new Date().getTime());
   const [submitted, setSubmmited] = useState<boolean>(false);
-  const [pending, setTransition] = useTransition();
+  const [pending, startTransition] = useTransition();
 
   const validateForm: () => boolean = useCallback(() => {
     for (const field of content) {
